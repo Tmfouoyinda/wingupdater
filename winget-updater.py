@@ -32,4 +32,3 @@ while True:
             print("\nMise à jour interrompue.")
     else:
         print("choix invalide, réssayez.")
-        break
