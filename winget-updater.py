@@ -1,8 +1,17 @@
-import os
+import subprocess
+
+
+def ouvrir_windows_update():
+    subprocess.run(["cmd", "/c", "start", "", "ms-settings:windowsupdate"])
+
+
+def mettre_a_jour_logiciels():
+    subprocess.run(["winget", "upgrade", "--all", "--accept-source-agreements", "--accept-package-agreements"])
+
 
 def winget_updater():
     while True:
-        print("1) Mettre son système à jour")
+        print("\n1) Mettre son système à jour")
         print("2) Mettre ses logiciels à jour")
         print("3) Quitter")
 
@@ -16,15 +25,16 @@ def winget_updater():
             break
 
         if choix == 1:
-            print("Mise à jour du système...")
-            os.system("start ms-settings:windowsupdate")
+            print("Ouverture des paramètres Windows Update...")
+            ouvrir_windows_update()
         elif choix == 2:
-            print("Mise à jour des logiciels...")
-            os.system("winget upgrade --all --accept-source-agreements")
+            print("Lancement de la mise à jour des logiciels...")
+            mettre_a_jour_logiciels()
         elif choix == 3:
             print("Au revoir !")
             break
         else:
             print("Choix invalide, réessayez.")
+
 
 winget_updater()
