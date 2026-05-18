@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 def wingudater():
     while True:
@@ -17,10 +17,24 @@ def wingudater():
 
         if choice == 1:
             print("Mise à jour du système...")
-            os.system("sudo apt update && sudo apt upgrade -y")
+            result = subprocess.run(["sudo", "apt", "update"])
+            if result.returncode == 0:
+                result = subprocess.run(["sudo", "apt", "upgrade", "-y"])
+                if result.returncode == 0:
+                    print("Système mis à jour avec succès.")
+                else:
+                    print(f"Erreur lors de apt upgrade (code {result.returncode}).")
+            else:
+                print(f"Erreur lors de apt update (code {result.returncode}).")
+
         elif choice == 2:
             print("Mise à jour des logiciels...")
-            os.system("sudo apt upgrade -y")
+            result = subprocess.run(["sudo", "apt", "upgrade", "-y"])
+            if result.returncode == 0:
+                print("Logiciels mis à jour avec succès.")
+            else:
+                print(f"Erreur lors de la mise à jour des logiciels (code {result.returncode}).")
+
         elif choice == 3:
             print("Au revoir.")
             break
